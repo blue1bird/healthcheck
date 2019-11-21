@@ -4,10 +4,10 @@
 
   tasks:
 - name: Check if NTPD is running
-  command: service ntpd status
+  shell: service ntpd status
   ignore_errors: yes
   changed_when: false
-  register: service_apache_ntpd
+  register: service_ntpd
 
 - name: Report status of NTPD
   fail:
