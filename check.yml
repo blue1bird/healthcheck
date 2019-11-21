@@ -1,0 +1,19 @@
+---
+- hosts: all
+  remote_user: root
+
+  tasks:
+- name: Check if NTPD is running
+  command: service ntpd status
+  ignore_errors: yes
+  changed_when: false
+  register: service_apache_ntpd
+
+- name: Report status of NTPD
+  fail:
+    msg: |
+      Service ntpd is not running.
+      Output of `service ntpd status`:
+      {{ service_ntpd_status.stdout }}
+      {{ service_ntpd_status.stderr }}
+  when: service_ntpd_status | failed
